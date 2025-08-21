@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Xác nhận đăng ký</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <h1 class="logo">Hiến Máu Nhân Đạo 2025</h1>
+    <nav>
+      <a href="index.html">Trang chủ</a>
+      <a href="register.html">Đăng ký</a>
+      <a href="admin.html">Danh sách</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container full-height">
+  <section class="confirm">
+    <h2>🎉 Đăng ký thành công!</h2>
+    <p id="msg">Cảm ơn bạn đã đăng ký hiến máu.</p>
+    <div class="actions">
+      <a class="btn" href="index.html">Về trang chủ</a>
+      <a class="btn outline" href="admin.html">Xem danh sách</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <small>© 2025 Hiến Máu Nhân Đạo — Mini Scrum Project</small>
+  </div>
+</footer>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name');
+if (name) {
+  document.getElementById('msg').textContent = `Cảm ơn ${name} đã đăng ký hiến máu. Hẹn gặp bạn tại sự kiện!`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Đăng ký hiến máu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <h1 class="logo">Hiến Máu Nhân Đạo 2025</h1>
+    <nav>
+      <a href="index.html">Trang chủ</a>
+      <a href="register.html" aria-current="page">Đăng ký</a>
+      <a href="admin.html">Danh sách</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container full-height">
+  <section class="form-section">
+    <h2>Đăng ký tham gia hiến máu</h2>
+    <form id="registerForm" novalidate>
+      <div class="form-group">
+        <label for="name">Họ và tên <span class="req">*</span></label>
+        <input id="name" name="name" type="text" required />
+        <small class="error" id="nameErr"></small>
+      </div>
+      <div class="form-group">
+        <label for="dob">Ngày sinh <span class="req">*</span></label>
+        <input id="dob" name="dob" type="date" required />
+        <small class="error" id="dobErr"></small>
+      </div>
+      <div class="form-group">
+        <label for="address">Địa chỉ <span class="req">*</span></label>
+        <input id="address" name="address" type="text" required />
+        <small class="error" id="addressErr"></small>
+      </div>
+      <div class="form-group">
+        <label for="phone">Số điện thoại <span class="req">*</span></label>
+        <input id="phone" name="phone" type="tel" required />
+        <small class="error" id="phoneErr"></small>
+      </div>
+      <div class="form-group">
+        <label for="email">Email <span class="req">*</span></label>
+        <input id="email" name="email" type="email" required />
+        <small class="error" id="emailErr"></small>
+      </div>
+      <button class="btn primary" type="submit">Gửi đăng ký</button>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <small>© 2025 Hiến Máu Nhân Đạo — Mini Scrum Project</small>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+const form = document.getElementById('registerForm');
+const nameEl = document.getElementById('name');
+const dobEl = document.getElementById('dob');
+const addressEl = document.getElementById('address');
+const phoneEl = document.getElementById('phone');
+const emailEl = document.getElementById('email');
+
+const nameErr = document.getElementById('nameErr');
+const dobErr = document.getElementById('dobErr');
+const addressErr = document.getElementById('addressErr');
+const phoneErr = document.getElementById('phoneErr');
+const emailErr = document.getElementById('emailErr');
+
+function validate() {
+  let ok = true;
+  [nameErr, dobErr, addressErr, phoneErr, emailErr].forEach(e => e.textContent = '');
+
+  if (!nameEl.value.trim()) { nameErr.textContent = 'Nhập họ tên'; ok = false; }
+  if (!dobEl.value) { dobErr.textContent = 'Chọn ngày sinh'; ok = false; }
+  if (!addressEl.value.trim()) { addressErr.textContent = 'Nhập địa chỉ'; ok = false; }
+  const phoneRegex = /^[0-9]{9,11}$/;
+  if (!phoneEl.value.trim()) { phoneErr.textContent = 'Nhập số điện thoại'; ok = false; }
+  else if (!phoneRegex.test(phoneEl.value.trim())) { phoneErr.textContent = 'SĐT không hợp lệ'; ok = false; }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!emailEl.value.trim()) { emailErr.textContent = 'Nhập email'; ok = false; }
+  else if (!emailRegex.test(emailEl.value.trim())) { emailErr.textContent = 'Email không hợp lệ'; ok = false; }
+
+  return ok;
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+  saveRegistrant(
+    nameEl.value.trim(),
+    emailEl.value.trim(),
+    dobEl.value,
+    addressEl.value.trim(),
+    phoneEl.value.trim()
+  );
+  window.location.href = `success.html?name=${encodeURIComponent(nameEl.value.trim())}`;
+});
+</script>
+</body>
+</html>

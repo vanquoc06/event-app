@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Danh sách người đăng ký hiến máu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <h1 class="logo">Hiến Máu Nhân Đạo 2025</h1>
+    <nav>
+      <a href="index.html">Trang chủ</a>
+      <a href="register.html">Đăng ký</a>
+      <a href="admin.html" aria-current="page">Danh sách</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container full-height">
+  <section>
+    <h2>Danh sách người đăng ký hiến máu</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Địa chỉ</th>
+            <th>Số ĐT</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <button id="seed" class="btn">Thêm dữ liệu giả lập</button>
+      <button id="clear" class="btn danger">Xóa toàn bộ</button>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <small>© 2025 Hiến Máu Nhân Đạo — Mini Scrum Project</small>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+const tbody = document.getElementById('tbody');
+function render() {
+  const list = getRegistrants();
+  tbody.innerHTML = '';
+  if (!list.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="muted">Chưa có dữ liệu.</td></tr>`;
+    return;
+  }
+  list.forEach((r,i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${i+1}</td><td>${r.name}</td><td>${r.dob}</td><td>${r.address}</td><td>${r.phone}</td><td>${r.email}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+document.getElementById('seed').onclick = () => { seedDemo(); render(); }
+document.getElementById('clear').onclick = () => { if(confirm("Xóa toàn bộ?")){clearAll(); render();} }
+render();
+</script>
+</body>
+</html>
